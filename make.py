@@ -4,18 +4,6 @@ import datetime
 
 nb_path = 'notebooks/'
 
-def process_folder(path):
-
-    folder = path.split('/')[:-1]
-
-    folder = '/'.join(folder)
-
-    if not os.path.exists(folder):
-
-        os.makedirs(folder)
-
-    return folder
-
 def main():
 
     all_ipynb_files = [os.path.join(root, name)
@@ -29,9 +17,9 @@ def main():
 
     md_files = [ x.replace("notebooks", "content") for x in md_files ]
 
-    md_temp_files = [ "../" + x for x in md_files ]
+    md_temp_files = [ "./" + x for x in md_files ]
 
-    print(md_files)
+    # print(md_files)
 
     # [ process_folder(x) for x in md_files ]
 
@@ -39,7 +27,7 @@ def main():
 
         print(nb_file, md_file)
 
-        os.system(f"jupyter nbconvert --to markdown {nb_file} --output-dir {md_file.split('/')[:-1]}")
+        os.system(f"jupyter nbconvert --to markdown {nb_file} --output-dir {'/'.join(md_file.split('/')[:-1])}")
 
     author = "Altair"
 
