@@ -44,5 +44,37 @@
     </div>
 </div>
 
+<div class="row" id="notes">
+    <div class="col-sm-12">
+        <h2 class="category_header mt-0">Python</h2>
+    </div>
+</div>
+
+<!-- <div class="row" id="notes_machine_learning">
+    <div class="col-sm-12">
+        <h3 class="category_header">Machine Learning</h3>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <ul>
+                    {{ $pages := .Pages }}
+                    {{ if .IsHome }}
+                        {{ $pages = .Site.RegularPages }}
+                    {{ end }}
+                    {{ range (where $pages "File.Dir" "in" "/python") }}
+                    <li>
+                        <a href="{{.Permalink}}">{{.Title}}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 </main>
 {{ end }}
