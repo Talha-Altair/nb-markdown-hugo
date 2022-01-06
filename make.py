@@ -4,6 +4,18 @@ import datetime
 
 nb_path = 'notebooks/'
 
+def process_folder(path):
+
+    folder = path.split('/')[:-1]
+
+    folder = '/'.join(folder)
+
+    if not os.path.exists(folder):
+
+        os.makedirs(folder)
+
+    return folder
+
 def main():
 
     all_ipynb_files = [os.path.join(root, name)
@@ -19,10 +31,16 @@ def main():
 
     md_temp_files = [ "../" + x for x in md_files ]
 
-    for nb_file, md_file in zip(ipynb_files, md_temp_files):
-        os.system('jupyter nbconvert --to markdown {nb_file} --output {md_file}'.format(nb_file=nb_file, md_file=md_file))
+    print(md_files)
 
-    date_time = datetime.datetime.now().strftime("%Y-%m-%d")
+    # [ process_folder(x) for x in md_files ]
+
+    for nb_file, md_file in zip(ipynb_files, md_temp_files):
+
+        print(nb_file, md_file)
+
+        os.system(f"jupyter nbconvert --to markdown {nb_file} --output-dir {md_file.split('/')[:-1]}")
+
     author = "Altair"
 
     for single_file in md_files:
@@ -37,7 +55,6 @@ draft: false
 --- \n
 """
 
-        # Read the file
         with open(single_file, 'r') as f:
             content = f.read()
             new_content = template_metadata + content
